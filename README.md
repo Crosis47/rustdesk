@@ -1,3 +1,15 @@
+# LeeHollow RustDesk Client
+
+This repository is an AGPLv3 fork of [RustDesk](https://github.com/rustdesk/rustdesk).
+
+It builds RustDesk client binaries preconfigured for LeeHollow’s self-hosted RustDesk ID/relay server. The build-time configuration sets the default ID server, relay server, and public key so non-technical users do not have to configure these values manually.
+
+This project is not affiliated with, sponsored by, or endorsed by the upstream RustDesk project.
+
+Windows builds are intended to be code-signed using a certificate issued through the SignPath Foundation program.
+
+---
+
 <p align="center">
   <img src="res/logo-header.svg" alt="RustDesk - Your remote desktop"><br>
   <a href="#raw-steps-to-build">Build</a> •
@@ -25,9 +37,9 @@ RustDesk welcomes contribution from everyone. See [CONTRIBUTING.md](docs/CONTRIB
 
 [**FAQ**](https://github.com/rustdesk/rustdesk/wiki/FAQ)
 
-[**BINARY DOWNLOAD**](https://github.com/rustdesk/rustdesk/releases)
+[**BINARY DOWNLOAD**](https://github.com/Crosis47/rustdesk/releases)
 
-[**NIGHTLY BUILD**](https://github.com/rustdesk/rustdesk/releases/tag/nightly)
+[**NIGHTLY BUILD**](https://github.com/Crosis47/rustdesk/releases)
 
 [<img src="https://f-droid.org/badge/get-it-on.png"
     alt="Get it on F-Droid"
