@@ -1,6 +1,6 @@
 # Downloads
 
-Windows builds of LeeHollow RustDesk Client are published through this repository’s GitHub Releases page.
+Windows builds of LeeHollow RustDesk Client will be published through this repository’s GitHub Releases page:
 
 https://github.com/Crosis47/rustdesk/releases
 
