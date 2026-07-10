@@ -1,0 +1,5 @@
+[options]
+"api-server" = "https://api.example.invalid"
+"custom-rendezvous-server" = "id.example.invalid"
+"key" = "public-key-placeholder"
+"relay-server" = "relay.example.invalid"

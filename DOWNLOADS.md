@@ -8,7 +8,7 @@ Signed Windows builds will be published only after SignPath Foundation approval 
 
 ## Functionality
 
-LeeHollow RustDesk Client is a preconfigured RustDesk remote desktop support client for LeeHollow's self-hosted RustDesk ID/relay server. It is intended for legitimate remote support sessions initiated with user consent.
+LeeHollow RustDesk Client is a RustDesk remote desktop support client that bundles LeeHollow's self-hosted RustDesk ID/relay server configuration. It is intended for legitimate remote support sessions initiated with user consent.
 
 Remote desktop, clipboard, audio, and file transfer behavior follows RustDesk functionality and may transmit session data when a user explicitly starts or uses those features during a support session.
 

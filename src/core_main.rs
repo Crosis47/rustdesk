@@ -10,6 +10,11 @@ use hbb_common::{config, log};
 #[cfg(windows)]
 use tauri_winrt_notification::{Duration, Sound, Toast};
 
+#[cfg(windows)]
+const BUNDLED_SERVER_CONFIG: &str = "LeeHollowRustDesk.toml";
+#[cfg(windows)]
+const BUNDLED_SERVER_CONFIG2: &str = "LeeHollowRustDesk2.toml";
+
 #[macro_export]
 macro_rules! my_println{
     ($($arg:tt)*) => {
@@ -159,6 +164,11 @@ pub fn core_main() -> Option<Vec<String>> {
         }
     }
     hbb_common::init_log(false, &log_name);
+
+    #[cfg(windows)]
+    if !matches!(args.get(0).map(String::as_str), Some("--import-config")) {
+        import_bundled_server_config_if_needed();
+    }
 
     // linux uni (url) go here.
     #[cfg(all(target_os = "linux", feature = "flutter"))]
@@ -780,20 +790,66 @@ fn import_config(path: &str) {
     let config: Config = load_path(path.into());
     if config.is_empty() {
         log::info!("Empty source config, skipped");
-        return;
-    }
-    if get_modified_time(&path) > get_modified_time(&Config::file())
+    } else if get_modified_time(&path) > get_modified_time(&Config::file())
         && get_modified_time(&path) < get_exe_time()
     {
-        if store_path(Config::file(), config).is_err() {
+        if let Err(err) = store_path(Config::file(), config) {
+            log::error!("Failed to write imported config: {err}");
+        } else {
             log::info!("config written");
         }
     }
     let config2: Config2 = load_path(path2.into());
     if get_modified_time(&path2) > get_modified_time(&Config2::file()) {
-        if store_path(Config2::file(), config2).is_err() {
+        if let Err(err) = store_path(Config2::file(), config2) {
+            log::error!("Failed to write imported config2: {err}");
+        } else {
             log::info!("config2 written");
         }
+    }
+}
+
+#[cfg(windows)]
+fn import_bundled_server_config_if_needed() {
+    use hbb_common::config::{keys, load_path, Config, Config2};
+
+    let managed_keys = [
+        keys::OPTION_CUSTOM_RENDEZVOUS_SERVER,
+        keys::OPTION_RELAY_SERVER,
+        keys::OPTION_API_SERVER,
+        keys::OPTION_KEY,
+    ];
+    if managed_keys
+        .iter()
+        .any(|key| !Config::get_option(key).is_empty())
+    {
+        return;
+    }
+
+    let Ok(exe) = std::env::current_exe() else {
+        return;
+    };
+    let Some(exe_dir) = exe.parent() else {
+        return;
+    };
+    let config_path = exe_dir.join(BUNDLED_SERVER_CONFIG);
+    let config2_path = exe_dir.join(BUNDLED_SERVER_CONFIG2);
+    if !config_path.exists() || !config2_path.exists() {
+        return;
+    }
+
+    let bundled: Config2 = load_path(config2_path);
+    let mut imported = false;
+    for key in managed_keys {
+        if let Some(value) = bundled.options.get(key) {
+            if !value.is_empty() {
+                Config::set_option(key.to_owned(), value.to_owned());
+                imported = true;
+            }
+        }
+    }
+    if imported {
+        log::info!("Imported bundled RustDesk server configuration");
     }
 }
 

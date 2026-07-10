@@ -2,7 +2,7 @@
 
 LeeHollow RustDesk Client is an AGPLv3 fork of [RustDesk](https://github.com/rustdesk/rustdesk).
 
-It builds RustDesk client binaries preconfigured for LeeHollow's self-hosted RustDesk ID/relay server. The build-time configuration sets the default ID server, relay server, and public key so non-technical users do not have to configure these values manually.
+It builds RustDesk client binaries that bundle LeeHollow's self-hosted RustDesk ID/relay server configuration. The bundled configuration is imported into RustDesk's normal stored server options so non-technical users do not have to configure these values manually.
 
 This project is not affiliated with, sponsored by, or endorsed by the upstream RustDesk project.
 
@@ -12,7 +12,7 @@ Windows builds are intended to be code-signed through the SignPath Foundation pr
 
 This fork exists to provide transparent, preconfigured RustDesk client builds for legitimate remote support with user consent.
 
-The intended fork-specific changes are limited to build-time configuration for LeeHollow's self-hosted RustDesk infrastructure. This fork does not add advertising, analytics, hidden telemetry, or unrelated remote-control functionality.
+The intended fork-specific changes are limited to bundling LeeHollow's self-hosted RustDesk server configuration and importing it through RustDesk's normal configuration storage. This fork does not add advertising, analytics, hidden telemetry, or unrelated remote-control functionality.
 
 ## Downloads
 
@@ -35,13 +35,17 @@ Free code signing provided by [SignPath.io](https://about.signpath.io), certific
 - [Fork Notice](FORK-NOTICE.md)
 - [Installation and Uninstallation](INSTALLATION.md)
 
-## Build-Time Configuration
+## Bundled Configuration
 
-Windows Flutter builds run [.github/scripts/patch-rustdesk-selfhost.py](.github/scripts/patch-rustdesk-selfhost.py) during GitHub Actions builds.
+Windows Flutter builds run [.github/scripts/prepare-rustdesk-selfhost-config.py](.github/scripts/prepare-rustdesk-selfhost-config.py) during GitHub Actions builds.
+
+The script does not modify RustDesk's upstream default server constants. Instead, it writes bundled `LeeHollowRustDesk.toml` and `LeeHollowRustDesk2.toml` files into the Windows app folder. On first launch, if no custom server is already configured, the client imports those values into RustDesk's normal stored options.
 
 The workflow reads configuration from repository variables:
 
 - `RUSTDESK_ID_SERVER`
+- `RUSTDESK_RELAY_SERVER` (optional)
+- `RUSTDESK_API_SERVER` (optional)
 - `RUSTDESK_PUBLIC_KEY`
 
 Do not hardcode LeeHollow's RustDesk hostname or public key into the repository.

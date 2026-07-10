@@ -6,6 +6,6 @@ Do not file public issues for actively exploitable vulnerabilities, malware repo
 
 This project is a downstream AGPLv3 fork of RustDesk. Security issues that affect the upstream RustDesk codebase should also be reported to the upstream RustDesk project.
 
-This fork's intended changes are limited to build-time configuration for a self-hosted RustDesk server and fork-specific release/signing documentation.
+This fork's intended changes are limited to bundled configuration for a self-hosted RustDesk server and fork-specific release/signing documentation.
 
 Windows release signing is governed by [CODE_SIGNING_POLICY.md](CODE_SIGNING_POLICY.md).

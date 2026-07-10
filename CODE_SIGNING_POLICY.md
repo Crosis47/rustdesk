@@ -6,9 +6,9 @@ This policy applies to Windows release artifacts for LeeHollow RustDesk Client.
 
 ## Project Scope
 
-LeeHollow RustDesk Client is a downstream AGPLv3 fork of RustDesk. The fork exists to build transparent, preconfigured RustDesk client binaries for LeeHollow's self-hosted RustDesk ID/relay server.
+LeeHollow RustDesk Client is a downstream AGPLv3 fork of RustDesk. The fork exists to build transparent RustDesk client binaries that bundle LeeHollow's self-hosted RustDesk ID/relay server configuration.
 
-The intended fork-specific changes are limited to build-time configuration of the default ID server, relay server, and public key, plus fork-specific release, privacy, security, and signing documentation.
+The intended fork-specific changes are limited to bundling LeeHollow's server configuration as importable RustDesk configuration, plus fork-specific release, privacy, security, and signing documentation.
 
 This project must not submit upstream RustDesk release binaries, unrelated third-party binaries, or locally modified artifacts for signing as LeeHollow RustDesk Client. Signed release artifacts must be built from source code and build scripts in this repository by the documented GitHub Actions release workflow.
 
