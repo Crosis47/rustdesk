@@ -10,6 +10,8 @@ LeeHollow RustDesk Client is a downstream AGPLv3 fork of RustDesk. The fork exis
 
 The intended fork-specific changes are limited to bundling LeeHollow's server configuration as importable RustDesk configuration, plus fork-specific release, privacy, security, and signing documentation.
 
+Build-time server values are supplied through GitHub Actions secrets to avoid publishing LeeHollow's self-hosted server address in repository settings or CI logs. This does not change the public source and build transparency of the release: the build script that imports the values is in this repository, and the released client intentionally contains the resulting RustDesk server configuration.
+
 This project must not submit upstream RustDesk release binaries, unrelated third-party binaries, or locally modified artifacts for signing as LeeHollow RustDesk Client. Signed release artifacts must be built from source code and build scripts in this repository by the documented GitHub Actions release workflow.
 
 ## Team Roles

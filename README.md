@@ -48,6 +48,8 @@ The workflow reads configuration from GitHub Actions secrets:
 - `RUSTDESK_API_SERVER` (optional)
 - `RUSTDESK_PUBLIC_KEY`
 
+The server values are supplied as secrets because these clients connect to LeeHollow's privately operated self-hosted RustDesk infrastructure, and the maintainer does not want the server address exposed in repository configuration or CI logs. This is not a concealment mechanism for client behavior: released clients intentionally bundle the server configuration, and those values may be inspectable from distributed artifacts.
+
 Do not hardcode LeeHollow's RustDesk hostname or public key into the repository or print the generated configuration in build logs.
 
 The manual test workflow is available at [.github/workflows/leehollow-build-test.yml](.github/workflows/leehollow-build-test.yml).
