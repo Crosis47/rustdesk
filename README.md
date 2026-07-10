@@ -6,7 +6,7 @@ It builds RustDesk client binaries preconfigured for LeeHollow's self-hosted Rus
 
 This project is not affiliated with, sponsored by, or endorsed by the upstream RustDesk project.
 
-Windows builds are intended to be code-signed using a certificate issued through the SignPath Foundation program.
+Windows builds are intended to be code-signed through the SignPath Foundation program after project approval.
 
 ## Purpose
 
@@ -16,17 +16,24 @@ The intended fork-specific changes are limited to build-time configuration for L
 
 ## Downloads
 
-Windows builds are published through this repository's GitHub Releases page:
+Windows builds will be published through this repository's GitHub Releases page:
 
 [https://github.com/Crosis47/rustdesk/releases](https://github.com/Crosis47/rustdesk/releases)
 
 See [DOWNLOADS.md](DOWNLOADS.md) for the download policy.
+
+## Code signing policy
+
+See [CODE_SIGNING_POLICY.md](CODE_SIGNING_POLICY.md) for this project's Code signing policy, including SignPath Foundation signing scope, team roles, privacy policy links, and release approval rules.
+
+Free code signing provided by [SignPath.io](https://about.signpath.io), certificate by [SignPath Foundation](https://signpath.org).
 
 ## Privacy and Security
 
 - [Privacy Policy](PRIVACY.md)
 - [Security Policy](SECURITY.md)
 - [Fork Notice](FORK-NOTICE.md)
+- [Installation and Uninstallation](INSTALLATION.md)
 
 ## Build-Time Configuration
 

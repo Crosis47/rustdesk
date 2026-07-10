@@ -6,4 +6,6 @@ The purpose of this fork is to produce transparent, preconfigured client builds 
 
 This fork does not add advertising, analytics, hidden telemetry, or unrelated remote-control functionality.
 
+This fork is not intended to identify or exploit security vulnerabilities, bypass security controls, or operate as a hidden remote-control tool. It is intended for legitimate remote support with user consent.
+
 This project is not affiliated with, sponsored by, or endorsed by the upstream RustDesk project.
