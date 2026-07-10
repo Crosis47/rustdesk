@@ -15,6 +15,15 @@ on:
       include-windows-sciter:
         type: boolean
         default: true
+    secrets:
+      RUSTDESK_ID_SERVER:
+        required: false
+      RUSTDESK_RELAY_SERVER:
+        required: false
+      RUSTDESK_API_SERVER:
+        required: false
+      RUSTDESK_PUBLIC_KEY:
+        required: false
 
 # NOTE: F-Droid builder script 'flutter/build_fdroid.sh' reads environment
 # variables from this workflow!
@@ -323,15 +332,20 @@ jobs:
           path: "./rustdesk"
 
       - name: Prepare bundled RustDesk server configuration
-        if: env.UPLOAD_ARTIFACT == 'true' && vars.RUSTDESK_ID_SERVER != '' && vars.RUSTDESK_PUBLIC_KEY != ''
+        if: env.UPLOAD_ARTIFACT == 'true'
         shell: bash
         env:
-          RUSTDESK_ID_SERVER: ${{ vars.RUSTDESK_ID_SERVER }}
-          RUSTDESK_RELAY_SERVER: ${{ vars.RUSTDESK_RELAY_SERVER }}
-          RUSTDESK_API_SERVER: ${{ vars.RUSTDESK_API_SERVER }}
-          RUSTDESK_PUBLIC_KEY: ${{ vars.RUSTDESK_PUBLIC_KEY }}
+          RUSTDESK_ID_SERVER: ${{ secrets.RUSTDESK_ID_SERVER }}
+          RUSTDESK_RELAY_SERVER: ${{ secrets.RUSTDESK_RELAY_SERVER }}
+          RUSTDESK_API_SERVER: ${{ secrets.RUSTDESK_API_SERVER }}
+          RUSTDESK_PUBLIC_KEY: ${{ secrets.RUSTDESK_PUBLIC_KEY }}
           RUSTDESK_CONFIG_OUTPUT_DIR: rustdesk
-        run: python3 .github/scripts/prepare-rustdesk-selfhost-config.py
+        run: |
+          if [ -z "$RUSTDESK_ID_SERVER" ] || [ -z "$RUSTDESK_PUBLIC_KEY" ]; then
+            echo "Bundled RustDesk server configuration skipped; required secrets are not set."
+            exit 0
+          fi
+          python3 .github/scripts/prepare-rustdesk-selfhost-config.py
 
       - name: Upload unsigned
         if: env.UPLOAD_ARTIFACT == 'true'
@@ -499,15 +513,20 @@ jobs:
           mv ./usbmmidd_v2 ./Release || true
 
       - name: Prepare bundled RustDesk server configuration
-        if: env.UPLOAD_ARTIFACT == 'true' && vars.RUSTDESK_ID_SERVER != '' && vars.RUSTDESK_PUBLIC_KEY != ''
+        if: env.UPLOAD_ARTIFACT == 'true'
         shell: bash
         env:
-          RUSTDESK_ID_SERVER: ${{ vars.RUSTDESK_ID_SERVER }}
-          RUSTDESK_RELAY_SERVER: ${{ vars.RUSTDESK_RELAY_SERVER }}
-          RUSTDESK_API_SERVER: ${{ vars.RUSTDESK_API_SERVER }}
-          RUSTDESK_PUBLIC_KEY: ${{ vars.RUSTDESK_PUBLIC_KEY }}
+          RUSTDESK_ID_SERVER: ${{ secrets.RUSTDESK_ID_SERVER }}
+          RUSTDESK_RELAY_SERVER: ${{ secrets.RUSTDESK_RELAY_SERVER }}
+          RUSTDESK_API_SERVER: ${{ secrets.RUSTDESK_API_SERVER }}
+          RUSTDESK_PUBLIC_KEY: ${{ secrets.RUSTDESK_PUBLIC_KEY }}
           RUSTDESK_CONFIG_OUTPUT_DIR: Release
-        run: python3 .github/scripts/prepare-rustdesk-selfhost-config.py
+        run: |
+          if [ -z "$RUSTDESK_ID_SERVER" ] || [ -z "$RUSTDESK_PUBLIC_KEY" ]; then
+            echo "Bundled RustDesk server configuration skipped; required secrets are not set."
+            exit 0
+          fi
+          python3 .github/scripts/prepare-rustdesk-selfhost-config.py
 
       - name: find Runner.res
         # Windows: find Runner.res (compiled from ./flutter/windows/runner/Runner.rc), copy to ./Runner.res

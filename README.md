@@ -41,14 +41,14 @@ Windows Flutter builds run [.github/scripts/prepare-rustdesk-selfhost-config.py]
 
 The script does not modify RustDesk's upstream default server constants. Instead, it writes bundled `LeeHollowRustDesk.toml` and `LeeHollowRustDesk2.toml` files into the Windows app folder. On first launch, if no custom server is already configured, the client imports those values into RustDesk's normal stored options.
 
-The workflow reads configuration from repository variables:
+The workflow reads configuration from GitHub Actions secrets:
 
 - `RUSTDESK_ID_SERVER`
 - `RUSTDESK_RELAY_SERVER` (optional)
 - `RUSTDESK_API_SERVER` (optional)
 - `RUSTDESK_PUBLIC_KEY`
 
-Do not hardcode LeeHollow's RustDesk hostname or public key into the repository.
+Do not hardcode LeeHollow's RustDesk hostname or public key into the repository or print the generated configuration in build logs.
 
 The manual test workflow is available at [.github/workflows/leehollow-build-test.yml](.github/workflows/leehollow-build-test.yml).
 
