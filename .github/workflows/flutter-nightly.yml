@@ -18,3 +18,4 @@ jobs:
       upload-artifact: true
       upload-tag: "nightly"
       windows-only: true
+      include-windows-sciter: false

@@ -23,3 +23,4 @@ jobs:
     with:
       upload-artifact: false
       windows-only: true
+      include-windows-sciter: false

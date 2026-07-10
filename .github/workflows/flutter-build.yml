@@ -12,6 +12,9 @@ on:
       windows-only:
         type: boolean
         default: false
+      include-windows-sciter:
+        type: boolean
+        default: true
 
 # NOTE: F-Droid builder script 'flutter/build_fdroid.sh' reads environment
 # variables from this workflow!
@@ -398,6 +401,7 @@ jobs:
 
   # The fallback for the flutter version, we use Sciter for 32bit Windows.
   build-for-windows-sciter:
+    if: ${{ inputs.include-windows-sciter }}
     name: ${{ matrix.job.target }} (${{ matrix.job.os }})
     runs-on: ${{ matrix.job.os }}
     # Temporarily disable this action due to additional test is needed.
@@ -427,6 +431,15 @@ jobs:
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
           submodules: recursive
+
+      - name: Patch RustDesk self-host defaults
+        shell: bash
+        env:
+          RUSTDESK_ID_SERVER: ${{ vars.RUSTDESK_ID_SERVER }}
+          RUSTDESK_PUBLIC_KEY: ${{ vars.RUSTDESK_PUBLIC_KEY }}
+        run: |
+          python3 .github/scripts/patch-rustdesk-selfhost.py
+          grep -n 'RENDEZVOUS_SERVERS\|RS_PUB_KEY' libs/hbb_common/src/config.rs
 
       - name: Install LLVM and Clang
         uses: rustdesk-org/install-llvm-action-32bit@6aa7d9ad3df84dff01cd4596dd0fc880a7f47fce # no release tag; commit 2026-05-26
