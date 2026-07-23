@@ -1,4 +1,4 @@
-name: Flutter Tag Build
+name: Windows Agents Release (Tag)
 
 on:
   workflow_dispatch:
@@ -14,7 +14,8 @@ permissions:
   actions: read
 
 jobs:
-  run-flutter-tag-build:
+  build-windows-agents-tag-release:
+    name: Build and publish tagged Windows agents
     uses: ./.github/workflows/flutter-build.yml
     secrets: inherit
     with:

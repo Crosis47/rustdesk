@@ -1,5 +1,5 @@
-# This yaml shares the build bridge steps with ci and nightly.
-name: Build flutter-rust-bridge
+# This yaml shares the build bridge steps with Windows agent release builds.
+name: Windows Agents Bridge (Reusable)
 # 2023-11-23 18:00:00+00:00
 
 on:

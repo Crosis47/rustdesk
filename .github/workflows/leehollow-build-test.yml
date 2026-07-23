@@ -1,4 +1,4 @@
-name: LeeHollow RustDesk Test Build
+name: Windows Agents Release (Manual Test)
 
 on:
   workflow_dispatch:
@@ -8,7 +8,8 @@ permissions:
   actions: read
 
 jobs:
-  build:
+  build-windows-agents-test-release:
+    name: Build and publish test Windows agents
     uses: ./.github/workflows/flutter-build.yml
     with:
       upload-artifact: true
